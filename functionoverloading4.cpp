@@ -1,72 +1,92 @@
-#include<iostream>
+#include <iostream>
+#include <string>
+
 using namespace std;
-class Course{
-    protected:
-    string code;
+
+class Course {
+protected:
+    string courseCode;
     string instructor;
-    public:
-    Course(string code,string instructor):code(code) ,instructor(instructor){}
-        virtual void displayinfo()=0;
-        virtual void specialFunctionality()=0;
-    };
-class lecture : public Course{
-    private:
-    int maxenrollment;
-    public:
-    lecture(string code,string instructor,int maxenrollment):Course(code,instructor),maxenrollment(maxenrollment){}
-        void displayinfo() override{
-            cout<<"COURSE CODE : "<<code<<endl;
-            cout<<"INSTRUCTOR : "<<instructor<<endl;
-            cout<<"MAX ENROLLMENT : "<<maxenrollment<<endl;
-        }
-        void specialFunctionality() override{
-            cout<<"CHECKING ENROLLMENT STATUS FOR LECTURE \n";
-        }
-    };
-class seminar : public Course{
-    string topic;
-    public:
-    seminar(string code,string instructor,string topic):Course(code,instructor),topic(topic){}
-        void displayinfo() override{
-            cout<<"COURSE CODE : "<<code<<endl;
-            cout<<"INSTRUCTOR : "<<instructor<<endl;
-            cout<<"TOPIC : "<<topic<<endl;
-        }
-        void specialFunctionality() override{
-            cout<<"STATUS FOR SEMINAR \n";
-        }	 	  	 	   	  	   	    	 	   	     	 	
-    
-};
-class lab : public Course{
-    string equipment;
-    public:
-    lab(string code,string instructor,string equipment):Course(code,instructor),equipment(equipment){}
-        void displayinfo() override{
-            cout<<"COURSE CODE : "<<code<<endl;
-            cout<<"INSTRUCTOR : "<<instructor<<endl;
-            cout<<"EQUIPMENT : "<<equipment<<endl;
-        }
-        void specialFunctionality() override{
-            cout<<"LISTING EQUIPMENT FOR LAB \n";
-        }
-    
+
+public:
+    Course(string code, string instructor) : courseCode(code), instructor(instructor) {}
+
+    virtual void displayInfo() = 0;
+    virtual void specificFunctionality() = 0;
+    virtual ~Course() {}
 };
 
-int main(){
+class Lecture : public Course {
+private:
+    int maxEnrollment;
+
+public:
+    Lecture(string code, string instructor, int maxEnrollment) : Course(code, instructor), maxEnrollment(maxEnrollment) {}
+
+    void displayInfo() override {
+        cout << "Course Code: " << courseCode << endl;
+        cout << "Instructor: " << instructor << endl;
+        cout << "Max Enrollment: " << maxEnrollment << endl;
+    }
+
+    void specificFunctionality() override {
+        cout << "Checking enrollment status for lecture..." << endl;
+        // Implement specific functionality for lectures here
+    }
+};
+
+class Seminar : public Course {
+private:
+    // Specific attributes for Seminar can be added here
+
+public:
+    Seminar(string code, string instructor) : Course(code, instructor) {}
+
+    void displayInfo() override {
+        cout << "Course Code: " << courseCode << endl;
+        cout << "Instructor: " << instructor << endl;
+    }
+
+    void specificFunctionality() override {
+        cout << "Implementing specific functionality for seminar..." << endl;
+        // Implement specific functionality for seminars here
+    }
+};
+
+class Lab : public Course {
+private:
+    string equipmentRequirements;
+
+public:
+    Lab(string code, string instructor, string equipmentRequirements) : Course(code, instructor), equipmentRequirements(equipmentRequirements) {}
+
+    void displayInfo() override {
+        cout << "Course Code: " << courseCode << endl;
+        cout << "Instructor: " << instructor << endl;
+        cout << "Equipment Requirements: " << equipmentRequirements << endl;
+    }
+
+    void specificFunctionality() override {
+        cout << "Listing equipment for lab..." << endl;
+        // Implement specific functionality for labs here
+    }
+};
+
+int main() {
     Course* courses[3];
-    courses[0]=new lecture("CSCI101","DR.SMITH",1000);
-    courses[1]=new seminar("ENGL102","DR.Johnson","ENGLISH");
-    courses[2]=new lab("CHEM103","DR.BROWN","LAB COATS");
-    
-    for(int i=0;i<3;i++){
-        courses[i]->displayinfo();
-        courses[i]->specialFunctionality();
-        cout<<endl;
+    courses[0] = new Lecture("CS101", "Dr. Smith", 100);
+    courses[1] = new Seminar("CS201", "Prof. Johnson");
+    courses[2] = new Lab("CS301", "Dr. Brown", "Computers, Projector");
+
+    for (int i = 0; i < 3; ++i) {
+        courses[i]->displayInfo();
+        courses[i]->specificFunctionality();
+        cout << endl;
     }
-    for(int i=0;i<3;i++){
-       delete courses[i];
+
+    for (int i = 0; i < 3; ++i) {
+        delete courses[i];
     }
-    
+
     return 0;
 }
-	 	  	 	   	  	   	    	 	   	     	 	

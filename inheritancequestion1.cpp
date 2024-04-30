@@ -1,59 +1,64 @@
 #include<iostream>
 using namespace std;
 class staff{
-    protected:
     string name;
     string designation;
     public:
-    void putdetails(){
+    void input(){
         cout<<"ENTER THE NAME : ";
-        cin>>name;
-        cout<<"ENTER THE DESIGNATION : ";
-        cin>>designation;
+        getline(cin,name);
+        
+        cout<<"ENTER THE DESINATION : ";
+        getline(cin,designation);
     }
-    void getdetails(){
+    void output(){
         cout<<"NAME IS : "<<name<<endl;
-        cout<<"DESIGNATION IS : "<<designation<<endl;
+        cout<<"DEGIGNATION IS : "<<designation<<endl;
     }
 };
-class SALARY : public staff{
-    protected:
+class DEP:public staff{
     string department;
-    float salary;
+    double salary;
     public:
-    void putsalary(){
-        putdetails();
+    void input1(){
         cout<<"ENTER THE DEPARTMENT : ";
-        cin>>department;
+        getline(cin,department);
         cout<<"ENTER THE SALARY : ";
         cin>>salary;
+        cin.ignore();
     }
-    void getsalary(){
-        getdetails();
+    void output1(){
         cout<<"DEPARTMENT IS : "<<department<<endl;
         cout<<"SALARY IS : "<<salary<<endl;
-    }
-    
+    } 
 };
-class Award : public SALARY{	 	  	 	   	  	   	    	 	   	     	 	
-    protected:
+class AWARD:public DEP{
+   
+    
     string award;
     public:
-    void putAward(){
-        putsalary();
-        cout<<"ENTER THE AWARD : ";
-        cin>>award;
-    }
-    void getaward(){
-        getsalary();
-        cout<<"AWARD IS : "<<award<<endl;
-    }
     
+    void input2(){
+        cout<<"ENTER THE AWARD : ";
+        getline(cin,award);
+       
+    }
+    void output2(){
+        cout<<"AWARD IS : "<<award<<endl;
+
+    } 
 };
+
+
 int main(){
-    Award s1;
-    s1.putAward();
-    cout<<"\nSTAFF DETAILS GIVEN BELOW :\n";
-    s1.getaward();
+    AWARD employee;
+    employee.input();
+    employee.input1();
+    employee.input2();
+    cout<<"\nSTAFF DETAILS :\n";
+    employee.output();
+    employee.output1();
+    employee.output2();
     return 0;
 }
+
